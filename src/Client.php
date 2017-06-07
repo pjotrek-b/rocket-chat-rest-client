@@ -9,6 +9,7 @@ class Client{
     public $api;
 
     public $lastError = null;
+    public $lastErrorCode = null;
 
     //static lists
     protected static $allUsers;

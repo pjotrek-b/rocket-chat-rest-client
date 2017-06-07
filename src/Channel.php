@@ -56,6 +56,7 @@ class Channel extends Client {
             return $response->body->channel;
         } else {
             $this->lastError = $response->body->error;
+            $this->lastErrorCode = $response->code;
             return false;
         }
     }
@@ -71,6 +72,7 @@ class Channel extends Client {
             return $response->body;
         } else {
             $this->lastError = $response->body->error;
+            $this->lastErrorCode = $response->code;
             return false;
         }
     }
@@ -91,6 +93,7 @@ class Channel extends Client {
         if( $response->code == 200 && isset($response->body->success) && $response->body->success == true ) {
             return true;
         } else {
+            $this->lastErrorCode = $response->code;
             if( isset($response->body->error) )	$this->lastError = $response->body->error;
             else if( isset($response->body->message) ) $this->lastError = $response->body->message;
             return false;
