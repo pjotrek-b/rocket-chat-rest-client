@@ -62,6 +62,23 @@ class Channel extends Client {
     }
 
     /**
+     * @return Returns a #RocketChat\Channel object that matches the given name.
+     *         False if the channel does not exist yet.
+     */
+    public function getByName()
+    {
+        $this->getAllChannels(true);
+
+        foreach (self::$allChannels as $channel) {
+            if (strcmp($channel->name, $this->name) == 0) {
+                return $channel;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Retrieves the information about the channel.
      */
     public function info() {
