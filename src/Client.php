@@ -11,12 +11,12 @@ class Client{
     public $lastError = null;
 
     //static lists
-    private static $allUsers;
-    private static $allChannels;
-    private static $allGroups;
-    private static $allLivechatAgents;
-    private static $allLivechatManagers;
-    private static $allLivechatDepartments;
+    protected static $allUsers;
+    protected static $allChannels;
+    protected static $allGroups;
+    protected static $allLivechatAgents;
+    protected static $allLivechatManagers;
+    protected static $allLivechatDepartments;
 
     function __construct(){
         $this->api = ROCKET_CHAT_INSTANCE . REST_API_ROOT;
