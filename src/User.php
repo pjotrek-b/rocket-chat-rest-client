@@ -21,24 +21,30 @@ class User extends Client {
 
     public $remoteData;
 
-    public function __construct($username, $password, $fields = array()){
+    public function __construct($username=null, $password=null, $fields = array()){
         parent::__construct();
 
-        if(is_array($username)) {
-            $fields = $username;
-        } else {
-            $fields['username'] = $username;
-            $fields['password'] = $password;
+        if (!empty($username)) {
+            if(is_array($username)) {
+                $fields = $username;
+            } else {
+                $fields['username'] = $username;
+                $fields['password'] = $password;
+            }
         }
+
         $this->setData($fields);
     }
 
     /**
      * Set data for user properties
      * @param array $data
+     * @return The populated User object or False if $data was empty.
      */
     public function setData(array $data)
     {
+        if (empty($data)) return false;
+
         foreach($data as $field => $value) {
             if(!property_exists($this, $field)) continue;
             $this->{$field} = $value;
