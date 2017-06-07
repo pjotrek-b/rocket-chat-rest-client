@@ -130,7 +130,7 @@ class Client{
      * @return array
      */
     public function getAllChannels($update = false) {
-        if($this->allChannels && !$update) return $this->allChannels;
+        if(!empty(self::$allChannels) && !$update) return self::$allChannels;
 
         $list = $this->list_channels();
         $result = [];
@@ -138,7 +138,7 @@ class Client{
             $result[$channel->id] = $channel;
         }
 
-        $this->allChannels = $result;
+        self::$allChannels = $result;
 
         return $result;
     }
