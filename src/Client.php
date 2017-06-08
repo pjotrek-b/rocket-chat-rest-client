@@ -253,5 +253,29 @@ class Client{
     }
 
 
+    /**
+     * Searches through the list of all registered users (#self::allUsers)
+     * and searches for ones that match the given email-address.
+     *
+     * @throw Exception  If #self::allUsers is empty.
+     * @return Array     List of matching users (RocketChat\User objects).
+     */
+    public function getUserByEmail($email) {
+        $match = array();
+        $allUsers = $this->getAllUsers();
+
+        if (empty($allUsers)) throw new \Exception('Cannot search user: Server has no users yet');
+
+        foreach ($allUsers as $userObj) {
+            //printf("User: %s (%s)\n", $userObj->name, $userObj->username);
+            if (strcasecmp($userObj->email, $email) == 0) {
+                $match[] = $userObj;
+            }
+        }
+
+        return $match;
+    }
+
+
 
 }
