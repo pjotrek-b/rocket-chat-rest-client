@@ -83,6 +83,8 @@ class Client{
         if(!empty(self::$allUsers) && !$update) return self::$allUsers;
 
         $list = $this->list_users();
+        if (empty($list)) return false;
+
         $result = [];
         foreach($list as $userData) {
             $user = new User();
