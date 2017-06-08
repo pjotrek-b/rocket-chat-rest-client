@@ -51,6 +51,7 @@ class Client{
                 return $response->body;
             }
         } else {
+            $this->lastErrorCode = $response->code;
             $this->lastError = $response->body->message;
             return false;
         }
