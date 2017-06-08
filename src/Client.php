@@ -70,7 +70,8 @@ class Client{
         if( $response->code == 200 && isset($response->body->success) && $response->body->success == true ) {
             return $response->body->users;
         } else {
-            $this->lastError = $response->body->error;
+            $this->lastErrorCode = $response->code;
+            $this->lastError = $response->body->message;
             return false;
         }
     }
