@@ -98,7 +98,8 @@ class Client{
      * List the private groups the caller is part of.
      */
     public function list_groups() {
-        $response = Request::get( $this->api . 'groups.list' )->send();
+        $url = sprintf($this->api . 'groups.list?count=%d&offset%d', $this->offset, $this->count);
+        $response = Request::get($url)->send();
 
         if( $response->code == 200 && isset($response->body->success) && $response->body->success == true ) {
             $groups = array();
@@ -116,7 +117,8 @@ class Client{
      * List the channels the caller has access to.
      */
     public function list_channels() {
-        $response = Request::get( $this->api . 'channels.list' )->send();
+        $url = sprintf($this->api . 'channels.list?count=%d&offset%d', $this->offset, $this->count);
+        $response = Request::get($url)->send();
 
         if( $response->code == 200 && isset($response->body->success) && $response->body->success == true ) {
             $groups = array();
@@ -245,4 +247,7 @@ class Client{
 
         return $result;
     }
+
+
+
 }
