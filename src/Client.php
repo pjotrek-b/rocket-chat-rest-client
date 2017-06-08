@@ -11,6 +11,9 @@ class Client{
     public $lastError = null;
     public $lastErrorCode = null;
 
+    public $offset = 0;             ///< number of items to “skip” in the query, is zero based so it starts off at 0 being the first item.
+    public $count = 0;              ///< the amount of items to “get” in the query, is one based so to get only one you would pass in 1. If you want to get all of the records, then pass in 0 but this will only work if the setting (see below) allows it.
+
     //static lists
     protected static $allUsers;
     protected static $allChannels;
@@ -60,7 +63,8 @@ class Client{
      * only limited to what the callee has access to view.
      */
     public function list_users(){
-        $response = Request::get( $this->api . 'users.list' )->send();
+        $url = sprintf($this->api . 'users.list?count=%d&offset%d', $this->offset, $this->count);
+        $response = Request::get($url)->send();
 
         if( $response->code == 200 && isset($response->body->success) && $response->body->success == true ) {
             return $response->body->users;
