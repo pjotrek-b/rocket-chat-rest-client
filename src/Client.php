@@ -29,6 +29,11 @@ class Client{
         $tmp = Request::init()
             ->sendsJson()
             ->expectsJson();
+
+        if (defined('PROXY_SOCKS5_HOST') && defined('PROXY_SOCKS5_PORT')) {
+            $tmp = $tmp->useSocks5Proxy(PROXY_SOCKS5_HOST, PROXY_SOCKS5_PORT);
+        }
+
         Request::ini( $tmp );
     }
 
